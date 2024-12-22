@@ -1,6 +1,7 @@
 import logging
 from flask import request, Flask, render_template
 from routes import api
+from service.cache import get_movement
 
 
 app = Flask(__name__)
@@ -8,9 +9,7 @@ app.logger.setLevel(logging.INFO)
 
 @app.route("/")
 def index():
-    logs = ""
-    if 'logs' in request.args:
-        logs = request.args['logs']
+    logs = get_movement()
     return render_template('index.html', logs=logs)
 
 if __name__ == "__main__":

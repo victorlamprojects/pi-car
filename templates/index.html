@@ -9,7 +9,11 @@
 	</div>
 	<div class="row gy-5">
 		<div class="col">
-			{{ logs }}
+            <div data-bs-spy="scroll" data-bs-offset="0" tabindex="0">
+            {%- for log in logs %}
+                <p>{{ log }}</p>
+            {% endfor %}
+            </div>
 		</div>
 	</div>
 	<div class="row py-2">

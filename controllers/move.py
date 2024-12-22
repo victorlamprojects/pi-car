@@ -2,6 +2,8 @@ import os
 os.environ["DISPLAY"] = ":0"
 
 from flask import current_app as app, request, make_response, Blueprint
+from service.control import forward, backward, left, right
+from service.cache import update_movement
 
 moves = Blueprint("moves", __name__)
 
@@ -18,6 +20,7 @@ def action():
         if request.method == "POST":
             msg = f"Pressing {action}"
             app.logger.info(msg)
+            update_movement(msg)
             response = make_response(
                 {
                     "data": msg
@@ -27,6 +30,7 @@ def action():
         else:
             msg = f"Released {action}"
             app.logger.info(msg)
+            update_movement(msg)
             response = make_response(
                 {
                     "data": msg
