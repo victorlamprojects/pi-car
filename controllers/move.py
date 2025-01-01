@@ -2,7 +2,7 @@ import os
 os.environ["DISPLAY"] = ":0"
 
 from flask import current_app as app, request, make_response, Blueprint
-from service.control import forward, backward, left, right
+from service.control import move 
 from service.cache import update_movement
 
 moves = Blueprint("moves", __name__)
@@ -10,8 +10,8 @@ moves = Blueprint("moves", __name__)
 @moves.route("/action", methods=["POST", "DELETE"])
 def action():
     headers = {
-            'mimetype': 'application/json'
-            }
+        'content-type': 'application/json'
+    }
     response = None
     try:
         data = request.json
@@ -21,6 +21,7 @@ def action():
             msg = f"Pressing {action}"
             app.logger.info(msg)
             update_movement(msg)
+            move(action, stop=False)
             response = make_response(
                 {
                     "data": msg
@@ -31,6 +32,7 @@ def action():
             msg = f"Released {action}"
             app.logger.info(msg)
             update_movement(msg)
+            move(action, stop=True)
             response = make_response(
                 {
                     "data": msg

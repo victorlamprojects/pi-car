@@ -9,11 +9,39 @@
 	</div>
 	<div class="row gy-5">
 		<div class="col">
-            <div data-bs-spy="scroll" data-bs-offset="0" tabindex="0">
-            {%- for log in logs %}
-                <p>{{ log }}</p>
-            {% endfor %}
+            <div class="overflow-auto" style="max-height: 170px;">
+                <ul class="list-group">
+                {%- for log in logs %}
+                    {% if loop.first %}
+                        <li class="list-group-item list-group-item-secondary">{{ log }}</li>
+                    {% else %}
+                        <li class="list-group-item">{{ log }}</li>
+                    {% endif %}
+                {% endfor %}
+                </ul>
             </div>
+		</div>
+	</div>
+	<div class="row py-2">
+		<div class="col-4"></div>
+		<div class="col-4 mx-auto">
+		</div>
+		<div class="col-4">
+            <table class="table table-dark table-bordered table-striped text-start">
+                <thead>
+                    <tr>
+                        <th colspan="2" class="fs-5 fw-bold">Battery Info</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {%- for field in battery_info %}
+                        <tr>
+                            <td>{{ field }}</td>
+                            <td>{{ battery_info[field] }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
 		</div>
 	</div>
 	<div class="row py-2">

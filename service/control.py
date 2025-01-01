@@ -1,4 +1,3 @@
-import time
 import os
 os.environ["DISPLAY"] = ":0"
 
@@ -22,8 +21,7 @@ def init():
     gpio.setup(IN_4, gpio.OUT)
     #gpio.output(EN_A, gpio.HIGH)
     #gpio.output(EN_B, gpio.HIGH)
-
-    clear()
+    return
 
 def clear():
     gpio.output(IN_1, gpio.LOW)
@@ -31,20 +29,17 @@ def clear():
     gpio.output(IN_3, gpio.LOW)
     gpio.output(IN_4, gpio.LOW)
 
-def forward(stop=False, seconds=0.5):
+def forward(stop=False):
     if stop == True:
-        time.sleep(seconds)
         clear()
     else:
         gpio.output(IN_1, gpio.LOW)
         gpio.output(IN_2, gpio.HIGH)
         gpio.output(IN_3, gpio.HIGH)
         gpio.output(IN_4, gpio.LOW)
-    
 
-def backward(stop=False, seconds=0.5):
+def backward(stop=False):
     if stop == True:
-        time.sleep(seconds)
         clear()
     else:
         gpio.output(IN_1, gpio.HIGH)
@@ -52,9 +47,8 @@ def backward(stop=False, seconds=0.5):
         gpio.output(IN_3, gpio.LOW)
         gpio.output(IN_4, gpio.HIGH)
 
-def left(stop=False, seconds=0.5):
+def left(stop=False):
     if stop == True:
-        time.sleep(seconds)
         clear()
     else:
         gpio.output(IN_1, gpio.HIGH)
@@ -62,9 +56,8 @@ def left(stop=False, seconds=0.5):
         gpio.output(IN_3, gpio.HIGH)
         gpio.output(IN_4, gpio.LOW)
 
-def right(stop=False, seconds=0.5):
+def right(stop=False): 
     if stop == True:
-        time.sleep(seconds)
         clear()
     else:
         gpio.output(IN_1, gpio.LOW)
@@ -72,3 +65,14 @@ def right(stop=False, seconds=0.5):
         gpio.output(IN_3, gpio.LOW)
         gpio.output(IN_4, gpio.HIGH)
 
+def move(action, stop=False):
+    if action == "up":
+        forward(stop)
+    elif action == "down":
+        backward(stop)
+    elif action == "left":
+        left(stop)
+    elif action == "right":
+        right(stop)
+
+init()

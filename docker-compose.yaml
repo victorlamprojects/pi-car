@@ -8,6 +8,10 @@ services:
     platform: linux/arm64/v8
     build: .
     privileged: true
+    devices:
+      - /dev:/dev
+    volumes:
+      - /tmp:/tmp
     ports:
       - "8080:8080"
     environment:
