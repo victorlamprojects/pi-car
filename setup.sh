@@ -1,4 +1,9 @@
-ssh-keygen -t rsa -q -f "$HOME/.ssh/id_rsa" -N ""
-ssh-copy-id $PI_HOST
-docker context create pi-car --docker "host=ssh://$PI_HOST"
-docker context use pi-car
+apt install -y python3-dev
+apt install -y python3-picamera2 --no-install-recommends
+apt install -y python3-picamera2 --no-install-recommends
+
+python3 -m venv .venv
+source .venv/bin/activate
+
+pip3 install --upgrade pip
+pip3 install --no-cache-dir -r requirements.txt

@@ -1,14 +1,9 @@
 ## Deployment
-### 1. Set PI_HOST=xxx.xxx.xx.xx where xxx.xxx.xx.xx is your local raspberry pi IP
+### 0. Set up environment
 ```
-export PI_HOST=xxx.xxx.xx.xx
+sudo ./setup.sh
 ```
-### 2. Run setup to set up ssh keys and create docker context
-(A context "pi-car" will be created and used)
+### 1. Start the app
 ```
-./setup.sh
-```
-### 3. Start the app
-```
-docker compose up
+python3 ./server.py
 ```
